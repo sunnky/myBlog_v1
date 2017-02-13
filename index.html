@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>blogs</title>
+        <meta name="viewport" content="initial-scale=1, width=device-width, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+	    <link type="text/css" rel="stylesheet" media="all" href="/static/css/base.css">
+	    <style type="text/css">
+	    	*{padding: 0;margin: 0;}
+	    	body{font-family: "微软雅黑";}
+	    	html {
+    			font-size: 100px;
+			}
+			a {
+			    text-decoration: none;
+			    color: #32D3C3;
+			}
+
+	    	.blog-body{
+	    		background: #F4F4F4;
+	    	}
+	    	.blog-mian{
+	    		-webkit-box-orient: horizontal;
+			    -webkit-box-direction: normal;
+			    -webkit-flex-direction: row;
+			    -ms-flex-direction: row;
+			    flex-direction: row;
+	    	}
+	    	.left-nav {
+			    background-color: #2A2935;
+			}
+	    	@media (min-width: 768px){	
+		    	.left-nav{
+		    		width: 15%;
+		    		height: 100vh;
+		    		background: #2A2935;
+		    		position: fixed;
+		    		font-size: 0.16rem;
+		    	}
+		    	.main{
+		    		margin: 0 15%;
+		    		flex: 1;
+		    		margin-bottom: 0.15rem;
+		    	}
+		    }
+		    .tag_header {
+			    display: none;
+			}
+			@media (min-width: 768px){	
+		    	.tag_header{
+		    		display: block;
+					font-size: 0;
+					color: #32D3C3;
+					height: 0.48rem;
+					border-bottom: 1px solid #ddd;
+					position: relative;
+					margin: 0 0.5rem;
+		    	}
+		    	.tag_header span {
+				    display: inline-block;
+				    font-size: 0.14rem;
+				    margin-left: 0;
+				    height: 0.47rem;
+				    line-height: 0.48rem;
+				    border-bottom: 2px solid #32D3C3;
+				    color: #666;
+				}
+				.tag_header .search {
+				    display: inline-block;
+				    outline: none;
+				    font-size: 0.14rem;
+				    height: 0.48rem;
+				    line-height: 0.48rem;
+				    position: absolute;
+				    right: 0;
+				}
+				.tag_header .search .search_box {
+				    display: inline-block;
+				    border: 1px solid #ddd;
+				    border-radius: 1rem;
+				    line-height: 0.14rem;
+				    padding: 4px 16px 4px 4px;
+				}
+				.tag_header .search .search_box .search_input {
+					width: 1.64rem;
+					padding-left: 4px;
+					outline: none;
+					border: none;
+					background-color: transparent; 
+		      	}
+		        .tag_header .search .search_box #search_submit {
+		          	display: none; 
+		        }
+		        .tag_header .search .search_box label {
+					display: inline-block;
+					width: 16px;
+					height: 15px;
+					background-image: url(img/search_icon.png);
+					vertical-align: middle; 
+		     	}
+		    }
+	     	
+	     	/*文章article*/
+			.post {
+				margin-top: 0.15rem;
+				padding: 0.18rem 0.11rem;
+				background-color: #fff; 
+			}
+			.post .post-title {
+			    font-size: 0.18rem;
+			    line-height: 0.23rem;
+			}
+			.post-list {
+			    margin: 0 0.1rem;
+			}
+			@media (min-width: 768px){	
+				.post-list {
+				    margin: 0.12rem 0.5rem 0;
+				}
+				.post {
+				    margin-top: 0.2rem;
+				    -webkit-box-sizing: border-box;
+				    box-sizing: border-box;
+				    padding: 0.24rem 0.3rem 0.04rem;
+				    width: calc(50% - 10px);
+				    border: 2px solid #fff;
+				}
+				.post:hover {
+			        border-color: #32D3C3;
+			        /*box-shadow: 1px 1px 5px 2px #32D3C3;*/
+			        cursor: pointer; 
+			    }
+				.post .post-title {
+				    font-size: 0.2rem;
+				    line-height: 0.29rem;
+				}
+			}
+			.post .post-meta {
+			    margin-bottom: 0.12rem;
+			    padding: 0.115rem 0 0.2rem;
+			    border-bottom: 1px dashed #DDD;
+			    color: #AAA;
+			    font-size: 0.12rem;
+			}
+			.post .post-meta .post-meta-author::after {
+			    content: '·';
+			    margin: 0 0.08rem;
+			}
+			@media (min-width: 768px){
+				.post-with-tags .post-meta {
+				    padding: 0.115rem 0 0;
+				    border-bottom: 0;
+				}
+				.post .post-meta {
+				    margin-bottom: 0;
+				}
+			}
+
+			@media (min-width: 768px){
+				.post-list{
+					-webkit-flex-wrap: wrap;
+			        -ms-flex-wrap: wrap;
+			        flex-wrap: wrap;
+			        display: -webkit-box;
+			        display: -webkit-flex;
+			        display: -ms-flexbox;
+			        /* display: flex; */
+				} 
+			}
+			@media (min-width: 768px){
+				.post-list div {
+			        -webkit-flex-wrap: wrap;
+			        -ms-flex-wrap: wrap;
+			        flex-wrap: wrap;
+			        display: -webkit-box;
+			        display: -webkit-flex;
+			        display: -ms-flexbox;
+			        /* display: flex; */
+			    }
+				.post-with-tags a {
+				    color: #2a2935;
+				}
+			}
+
+			@media (min-width: 768px){
+				.post-with-tags .post-abstract {
+				    border-bottom: 1px dashed #DDD;
+				}
+			}
+			@media (min-width: 768px){
+				.post .post-abstract {
+				    padding: 0.2rem 0;
+				}
+			}
+			.post .post-abstract {
+			    line-height: 0.22rem;
+			    color: #666;
+			    font-size: 0.14rem;
+			}
+
+			.post .post-tags {
+				display: none;
+			    font-size: 0;
+			}
+			@media (min-width: 768px){
+				.post-with-tags .post-tags {
+				    display: block;
+				}
+			}
+			@media (min-width: 768px){
+				.post .post-tags {
+				    margin: 0.2rem 0 0.2rem;
+				}
+			}
+
+			@media (min-width: 768px){
+				.post .post-tags .tag {
+				    font-size: 0.12rem;
+				}
+			}
+			.post .post-tags .tag {
+			    text-decoration: none;
+			    font-size: 0.1rem;
+			    line-height: 0.12rem;
+			    color: #32D3C3;
+			    display: inline-block;
+			    border-radius: 1.15rem;
+			    border: 1px solid #32D3C3;
+			    padding: 0.05rem 0.09rem;
+			    margin: 0.04rem 0.04rem 0 0;
+			}
+			@media (min-width: 768px){
+				.post:nth-child(2n+0) {
+				    margin-left: 20px;
+				}
+			}
+
+			/*查看更多*/
+			.more {
+			    display: block;
+			    height: 0.3rem;
+			    width: 0.9rem;
+			    margin: 0.2rem 0 0.4rem -0.45rem;
+			    position: relative;
+			    left: 50%;
+			    font-size: 0.12rem;
+			}
+			@media (min-width: 768px){
+				.more {
+				    font-size: 0.16rem;
+				    margin: 0.4rem 0 0.4rem -0.71rem;
+				}
+			}
+			.more .rectangle {
+			    display: inline-block;
+			    line-height: 0.3rem;
+			    width: 0.9rem;
+			    text-align: center;
+			    border-radius: 0.45rem;
+			    background-color: #32D3C3;
+			    cursor: auto;
+			}
+			@media (min-width: 768px){
+				.more .rectangle {
+				    line-height: 0.36rem;
+				    width: 1.42rem;
+				}
+			}
+			.more .rectangle a {
+			    color: #fff;
+			    text-decoration: none;
+			}
+
+			/*返回顶部*/
+			.qr_code_btn_container{
+				display: none;
+			}
+			@media (min-width: 768px){
+				.qr_code_btn_container {
+				    display: block;
+				    position: fixed;
+				    right: 0.2rem;
+				    bottom: 0.2rem;
+				    margin: 0;
+				    padding: 0;
+				}
+			}
+			@media (min-width: 768px){
+				.qr_code_btn_container a {
+			   		display: block;
+				}
+				.qr_code_btn_container a:hover .qr_code{
+			   		display: block;
+				}
+			}
+			@media (min-width: 768px){	
+				.qr_code {
+				    display: none;
+				    position: fixed;
+				    right: 0.72rem;
+				    bottom: 0.2rem;
+				    margin: 0;
+				    background-color: white;
+				    font-size: 0;
+				}
+			}
+			@media (min-width: 768px){
+				.qr_code_btn_container .top_btn {
+				    background-image: url(img/top.png);
+				    -webkit-background-size: contain;
+				    background-size: contain;
+				    background-repeat: no-repeat;
+				}
+			}
+			@media (min-width: 768px){
+				.qr_code_btn_container .qr_code_btn img {
+				    display: block;
+				    width: 0.2rem;
+				    height: 0.2rem;
+				}
+			}
+			@media (min-width: 768px){
+				.qr_code_btn_container span {
+				    display: block;
+				    height: 0.42rem;
+				    width: 0.42rem;
+				}
+			}
+			@media (min-width: 768px){
+				.qr_code_btn_container .qr_code_btn {
+					width: 0.2rem;
+					height: 0.2rem;
+					padding: 0.1rem;
+					border: 1px solid #ddd;
+				}
+			}
+			@media (min-width: 768px){
+				.qr_code:after, .qr_code:before {
+				    border: solid transparent;
+				    content: ' ';
+				    width: 0;
+				    height: 0;
+				    position: absolute;
+				}
+				.qr_code:before {
+				    border-width: 5px;
+				    border-left-color: #32D3C3;
+				    right: -10px;
+				    bottom: 58px;
+				}
+				.qr_code:after {
+				    border-width: 5px;
+				    border-left-color: #fff;
+				    right: -9px;
+				    bottom: 58px;
+				}
+				
+			}
+			@media (min-width: 768px){
+				.qr_code .content .desktop_qr_tittle {
+				    display: block;
+				    padding-top: 0.08rem;
+				    font-size: 0.12rem;
+				    color: #32D3C3;
+				}
+				.qr_code .content {
+				    border: 1px solid #32D3C3;
+				}
+			}
+			.qr_code .content {
+			    text-align: center;
+			}
+
+			/*footer*/
+			@media (min-width: 768px){
+				#footer {
+				    position: fixed;
+				    width: 15%;
+				    bottom: 0;
+				    left: 0;
+				}
+			}
+			#footer #toTop {
+			    position: fixed;
+			    right: 0.1rem;
+			    bottom: 0.1rem;
+			    outline: none;
+			}
+			@media (min-width: 768px){
+				#toTop {
+				    display: none;
+				}
+			}
+			#footer #toTop img {
+			    display: block;
+			    width: 0.4rem;
+			    height: 0.4rem;
+			}
+			@media (min-width: 768px){
+				#footer .ft {
+				    font-size: 0.12rem;
+				    color: #666;
+				}
+			}
+			#footer .ft {
+			    padding: 0.2rem 0;
+			    color: #AAA;
+			    font-size: 0.1rem;
+			    text-align: center;
+			}
+			@media (min-width: 768px){
+				#footer .copyright {
+				    display: block;
+				}
+			}
+			#footer .copyright {
+			    margin: 0 0.025rem;
+			}
+
+			@media (max-width: 768px) and (min-device-width: 375px){
+				html {
+				    font-size: 117.1875px;
+				}
+			}
+
+			/*导航栏*/
+			.nav-bar-inner {
+			    padding: 0 0.1rem;
+			    background-color: #1e1d26;
+			    font-size: 0.16rem;
+			}
+			.nav-bar-inner .nav-bar-logo {
+			    display: block;
+			    float: left;
+			}
+			.nav-bar-inner .nav-bar-site-title {
+			    font-size: 0.16rem;
+			    line-height: 0.44rem;
+			}
+			.nav-bar-inner .nav-bar-btn {
+			    float: right;
+			    margin: 0.14rem 0 0.15rem;
+			    padding: 0;
+			    border: 0;
+			    background-color: transparent;
+			    outline: none;
+			}
+			.nav-bar-inner .nav-bar-btn .icon-bar {
+			    display: block;
+			    height: 1px;
+			    width: 0.15rem;
+			    border-radius: 1px;
+			    background-color: #32D3C3;
+			}
+			.nav-bar-inner .nav-bar-btn .icon-bar + .icon-bar {
+        		margin-top: 0.06rem; 	
+        	}
+			.nav-bar-inner .nav-bar-logo img {
+			    height: 0.16rem;
+			    margin: 0.14rem 0.05rem 0 0;
+			}
+			.nav-bar-tabs {
+			    display: none;
+			    font-size: 0.13rem;
+			}
+			.nav-bar-tabs nav {
+			    display: block;
+			    background-color: #fff;
+			}
+			.nav-bar-tabs[data-state='open'] {
+   				display: block; 
+   			}
+			.nav-bar-tabs nav .current {
+			    border-bottom-color: #32D3C3;
+			}
+			.nav-bar-tabs nav .nav-bar-tab {
+			    -webkit-box-sizing: border-box;
+			    box-sizing: border-box;
+			    display: inline-block;
+			    width: 100%;
+			    padding: 0.06rem 0;
+			    border-bottom: 1px solid #ddd;
+			}
+			
+			.nav-bar-tabs nav .nav-bar-tab a {
+			    display: block;
+			    color: #999;
+			    line-height: 0.24rem;
+			    text-align: center;
+			    text-decoration: none;
+			}
+			.nav-bar-tabs nav .current a {
+			    color: #32D3C3;
+			}
+			.nav-bar-tabs nav .current {
+			    border-bottom-color: #32D3C3;
+			}
+			/*.nav-bar-tabs nav .nav-bar-tab:nth-child(0n+2) {
+        		display: none;
+           	}*/
+
+			@media (min-width: 768px){
+				.nav-bar-inner {
+				    height: 0.48rem;
+				    padding: 0;
+				}
+				.nav-bar-inner .nav-bar-logo {
+				    float: right;
+				}
+				.nav-bar-inner .nav-bar-site-title {
+				    float: right;
+				    line-height: 0.48rem;
+				    margin-right: 0.05rem;
+				}
+				.nav-bar-inner .nav-bar-logo img {
+				    margin: 0.16rem 0.18rem 0 0;
+				}
+				.nav-bar-inner .nav-bar-btn {
+				    display: none;
+				}
+				.nav-bar-tabs {
+				    font-size: 0.16rem;
+				}
+				.nav-bar-tabs {
+				    display: block;
+				    margin-top: 0.32rem;
+				}
+
+				.nav-bar-tabs nav {
+				    background-color: transparent;
+				}
+				.nav-bar-tabs nav span.current {
+				    border-right-color: #32D3C3;
+				    background-color: #26252f;
+				}
+				.nav-bar-tabs nav .nav-bar-tab {
+				    border-bottom: 0;
+				    padding: 0 0.14rem 0 0;
+				    border-right: 0.04rem solid transparent;
+				    display: block;
+				    width: 100%;
+				}
+				.nav-bar-tabs nav .nav-bar-tab a {
+				    line-height: 0.5rem;
+				    text-align: right;
+				}
+				.nav-bar-tabs nav .nav-bar-tab:nth-child(0n+2) {
+            		display: block; 
+            	}
+			}
+	    </style>
+    </head>
+    <body class="blog-body">
+    	<div class="blog-main">
+	        <div class="left-nav">
+	        	<div class="nav-bar-inner">
+	        		<a href="/" class="nav-bar-logo"><img src="img/logo.svg"></a>
+	        		<span class="nav-bar-site-title"><a href="/">Sunnyk 丶 Blog</a></span>
+        			<button class="nav-bar-btn">
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+	        		</button>
+	        	</div>
+	        	<div class="nav-bar-tabs" data-state="close">
+	        		<nav>
+	        			<span class="nav-bar-tab current"><a href="/" class="current">最新文章</a></span>
+	        			<span class="nav-bar-tab"><a href="/archives">文章归档</a></span>
+	        			<span class="nav-bar-tab"><a href="/about">机器学习</a></span>
+	        			<span class="nav-bar-tab"><a href="/about">关于我们</a></span>
+	        		</nav>
+	        	</div>
+	        </div>
+
+	        <div class="main">
+	        	<div class="tag_header">
+	        		<span>最新文章</span>
+	        		<form action="https://www.baidu.com/s?" method="get" target="_blank" class="search">
+		        		<div class="search_box">
+		        			<input type="text" name="wd" class="search_input">
+		        			<input type="hidden" name="q" value="site:tech.sunny.com">
+		        			<input type="hidden" name="gw_rd" value="cr">
+		        			<input type="submit" id="search_submit">
+		        			<label for="search_submit"></label>
+		        		</div>
+		        	</form>
+	        	</div>
+	        	<section class="post-list">
+	        		<div>
+	        			<article class="post post-with-tags">
+	        				<header class="post-title"><a href="/mtddl.html">MTDDL——美团点评分布式数据访问层中间件</a></header>
+	        				<div class="post-meta">
+	        					<span class="post-meta-author">刘军</span><span class="post-meta-ctime">2016-12-19</span>
+	        				</div>
+	        				<p class="post-abstract">MTDDL（Meituan Distributed Data Layer）：美团点评分布式数据访问层中间件，旨在为全公司提供一个通用数据访问层服务，支...</p>
+	        				<footer class="post-tags">
+	        					<a href="/tag/分布式数据访问层中间件" class="tag"><span class="tag_name">分布式数据访问层中间件</span></a>
+	        					<a href="/tag/动态数据源" class="tag"><span class="tag_name">动态数据源</span></a>
+	        					<a href="/tag/读写分离" class="tag"><span class="tag_name">读写分离</span></a>
+	        					<a href="/tag/分布式唯一主键" class="tag"><span class="tag_name">分布式唯一主键</span></a>
+	        					<a href="/tag/分库分表" class="tag"><span class="tag_name">分库分表</span></a>
+	        					<a href="/tag/监控预警" class="tag"><span class="tag_name">监控预警</span></a>
+	        					<a href="/tag/动态化" class="tag"><span class="tag_name">动态化</span></a>
+	        					<a href="/tag/后台" class="tag"><span class="tag_name">后台</span></a>
+	        					<a href="/tag/餐饮" class="tag"><span class="tag_name">餐饮</span></a>
+	        				</footer>
+	        			</article>
+	        			<article class="post post-with-tags">
+	        				<header class="post-title"><a href="/mtddl.html">MTDDL——美团点评分布式数据访问层中间件</a></header>
+	        				<div class="post-meta">
+	        					<span class="post-meta-author">刘军</span><span class="post-meta-ctime">2016-12-19</span>
+	        				</div>
+	        				<p class="post-abstract">MTDDL（Meituan Distributed Data Layer）：美团点评分布式数据访问层中间件，旨在为全公司提供一个通用数据访问层服务，支...</p>
+	        				<footer class="post-tags">
+	        					<a href="/tag/分布式数据访问层中间件" class="tag"><span class="tag_name">分布式数据访问层中间件</span></a>
+	        					<a href="/tag/动态数据源" class="tag"><span class="tag_name">动态数据源</span></a>
+	        					<a href="/tag/读写分离" class="tag"><span class="tag_name">读写分离</span></a>
+	        					<a href="/tag/分布式唯一主键" class="tag"><span class="tag_name">分布式唯一主键</span></a>
+	        					<a href="/tag/分库分表" class="tag"><span class="tag_name">分库分表</span></a>
+	        					<a href="/tag/监控预警" class="tag"><span class="tag_name">监控预警</span></a>
+	        					<a href="/tag/动态化" class="tag"><span class="tag_name">动态化</span></a>
+	        					<a href="/tag/后台" class="tag"><span class="tag_name">后台</span></a>
+	        					<a href="/tag/餐饮" class="tag"><span class="tag_name">餐饮</span></a>
+	        				</footer>
+	        			</article>
+	        			<article class="post post-with-tags">
+	        				<header class="post-title"><a href="/mtddl.html">MTDDL——美团点评分布式数据访问层中间件</a></header>
+	        				<div class="post-meta">
+	        					<span class="post-meta-author">刘军</span><span class="post-meta-ctime">2016-12-19</span>
+	        				</div>
+	        				<p class="post-abstract">MTDDL（Meituan Distributed Data Layer）：美团点评分布式数据访问层中间件，旨在为全公司提供一个通用数据访问层服务，支...</p>
+	        				<footer class="post-tags">
+	        					<a href="/tag/分布式数据访问层中间件" class="tag"><span class="tag_name">分布式数据访问层中间件</span></a>
+	        					<a href="/tag/动态数据源" class="tag"><span class="tag_name">动态数据源</span></a>
+	        					<a href="/tag/读写分离" class="tag"><span class="tag_name">读写分离</span></a>
+	        					<a href="/tag/分布式唯一主键" class="tag"><span class="tag_name">分布式唯一主键</span></a>
+	        					<a href="/tag/分库分表" class="tag"><span class="tag_name">分库分表</span></a>
+	        					<a href="/tag/监控预警" class="tag"><span class="tag_name">监控预警</span></a>
+	        					<a href="/tag/动态化" class="tag"><span class="tag_name">动态化</span></a>
+	        					<a href="/tag/后台" class="tag"><span class="tag_name">后台</span></a>
+	        					<a href="/tag/餐饮" class="tag"><span class="tag_name">餐饮</span></a>
+	        				</footer>
+	        			</article>
+	        			<article class="post post-with-tags">
+	        				<header class="post-title"><a href="/mtddl.html">MTDDL——美团点评分布式数据访问层中间件</a></header>
+	        				<div class="post-meta">
+	        					<span class="post-meta-author">刘军</span><span class="post-meta-ctime">2016-12-19</span>
+	        				</div>
+	        				<p class="post-abstract">MTDDL（Meituan Distributed Data Layer）：美团点评分布式数据访问层中间件，旨在为全公司提供一个通用数据访问层服务，支...</p>
+	        				<footer class="post-tags">
+	        					<a href="/tag/分布式数据访问层中间件" class="tag"><span class="tag_name">分布式数据访问层中间件</span></a>
+	        					<a href="/tag/动态数据源" class="tag"><span class="tag_name">动态数据源</span></a>
+	        					<a href="/tag/读写分离" class="tag"><span class="tag_name">读写分离</span></a>
+	        					<a href="/tag/分布式唯一主键" class="tag"><span class="tag_name">分布式唯一主键</span></a>
+	        					<a href="/tag/分库分表" class="tag"><span class="tag_name">分库分表</span></a>
+	        					<a href="/tag/监控预警" class="tag"><span class="tag_name">监控预警</span></a>
+	        					<a href="/tag/动态化" class="tag"><span class="tag_name">动态化</span></a>
+	        					<a href="/tag/后台" class="tag"><span class="tag_name">后台</span></a>
+	        					<a href="/tag/餐饮" class="tag"><span class="tag_name">餐饮</span></a>
+	        				</footer>
+	        			</article>
+	        			<article class="post post-with-tags">
+	        				<header class="post-title"><a href="/mtddl.html">MTDDL——美团点评分布式数据访问层中间件</a></header>
+	        				<div class="post-meta">
+	        					<span class="post-meta-author">刘军</span><span class="post-meta-ctime">2016-12-19</span>
+	        				</div>
+	        				<p class="post-abstract">MTDDL（Meituan Distributed Data Layer）：美团点评分布式数据访问层中间件，旨在为全公司提供一个通用数据访问层服务，支...</p>
+	        				<footer class="post-tags">
+	        					<a href="/tag/分布式数据访问层中间件" class="tag"><span class="tag_name">分布式数据访问层中间件</span></a>
+	        					<a href="/tag/动态数据源" class="tag"><span class="tag_name">动态数据源</span></a>
+	        					<a href="/tag/读写分离" class="tag"><span class="tag_name">读写分离</span></a>
+	        					<a href="/tag/分布式唯一主键" class="tag"><span class="tag_name">分布式唯一主键</span></a>
+	        					<a href="/tag/分库分表" class="tag"><span class="tag_name">分库分表</span></a>
+	        					<a href="/tag/监控预警" class="tag"><span class="tag_name">监控预警</span></a>
+	        					<a href="/tag/动态化" class="tag"><span class="tag_name">动态化</span></a>
+	        					<a href="/tag/后台" class="tag"><span class="tag_name">后台</span></a>
+	        					<a href="/tag/餐饮" class="tag"><span class="tag_name">餐饮</span></a>
+	        				</footer>
+	        			</article>
+	        			<article class="post post-with-tags">
+	        				<header class="post-title"><a href="/mtddl.html">MTDDL——美团点评分布式数据访问层中间件</a></header>
+	        				<div class="post-meta">
+	        					<span class="post-meta-author">刘军</span><span class="post-meta-ctime">2016-12-19</span>
+	        				</div>
+	        				<p class="post-abstract">MTDDL（Meituan Distributed Data Layer）：美团点评分布式数据访问层中间件，旨在为全公司提供一个通用数据访问层服务，支...</p>
+	        				<footer class="post-tags">
+	        					<a href="/tag/分布式数据访问层中间件" class="tag"><span class="tag_name">分布式数据访问层中间件</span></a>
+	        					<a href="/tag/动态数据源" class="tag"><span class="tag_name">动态数据源</span></a>
+	        					<a href="/tag/读写分离" class="tag"><span class="tag_name">读写分离</span></a>
+	        					<a href="/tag/分布式唯一主键" class="tag"><span class="tag_name">分布式唯一主键</span></a>
+	        					<a href="/tag/分库分表" class="tag"><span class="tag_name">分库分表</span></a>
+	        					<a href="/tag/监控预警" class="tag"><span class="tag_name">监控预警</span></a>
+	        					<a href="/tag/动态化" class="tag"><span class="tag_name">动态化</span></a>
+	        					<a href="/tag/后台" class="tag"><span class="tag_name">后台</span></a>
+	        					<a href="/tag/餐饮" class="tag"><span class="tag_name">餐饮</span></a>
+	        				</footer>
+	        			</article>
+	        		</div>
+	        		<footer class="more"><span class="rectangle"><a href="/?l=40" class="btn">查看更多</a></span></footer>
+	        	</section>
+	        </div>
+	        <div class="qr_code_btn_container">
+	        	<a href="javascript: void(0)" class="qr_code_btn_link">
+		        	<span class="qr_code_btn">
+		        		<img src="img/qr_icon.png">
+		        	</span>
+		        	<div class="qr_code">
+	        		<div id="qr_code_btn" class="content">
+		        		<p class="title">关注我们</p><p class="desktop_qr_tittle">扫码关注技术博客</p>
+		        		<img height="110" width="110" src="img/qrcode_for_gh.jpg" class="qr_img"><p class="tips">微信搜索 "美团技术团队"</p>
+		        	</div>
+		        </div>
+		        </a>
+	        	
+	        	<a href="javascript:window.smoothScrollToTop()"><span class="top_btn"></span></a>
+	        </div>
+	        <footer id="footer">
+	        	<div id="toTop">
+	        		<a href="javascript:window.smoothScrollToTop()"><img src="img/top.png"></a>
+	        	</div>
+	        	<div class="ft">
+	        		<span class="copyright">© 2016 Sunnyk Administrator</span>
+	        		<span class="copyright">All rights reserved.</span>
+	        	</div>
+	        </footer>
+        </div>
+
+        <script type="text/javascript" src="/static/lib/jquery/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript">
+	        document.addEventListener('DOMContentLoaded', function () {
+			    var btn = document.querySelector('.nav-bar-btn');
+			    /*
+			     * Changing state: 通过修改, 增加或者删除类名实现状态的改变
+			     */
+			    /*
+			     * btn.addEventListener('click', function (event) {
+			     *     var tabs = document.querySelector('.' + this.className.substr(0, 8) + 'tabs');
+			     *     var className = tabs.getAttribute('class');
+			     *     if (/open/.test(className))
+			     *         tabs.setAttribute('class', 'nav-bar-tabs');
+			     *     else
+			     *         tabs.setAttribute('class', 'nav-bar-tabs is-open');
+			     * });
+			     */
+
+			    btn.addEventListener('click', function (event) {
+			        var tabs = document.querySelector('.' + this.className.substr(0, 8) + 'tabs');
+			        if (tabs.dataset.state === 'open')
+			            tabs.dataset.state = 'close';
+			        else
+			            tabs.dataset.state = 'open';
+			    });
+
+			    var posts = document.querySelectorAll('.post-list .post');
+			    Array.prototype.forEach.call(posts, function(post, i){
+			        post.addEventListener('click', function (event) {
+			            var url = this.querySelector('a').href;
+			            window.location.href = url;
+			        });
+			    });
+
+			    window.smoothScrollToTop = (function () {
+			        var timeOut;
+			        var speed;
+			        return function scrollToTop() {
+			            speed = speed || document.body.scrollTop/25;
+			            if (document.body.scrollTop || document.documentElement.scrollTop){
+			                window.scrollBy(0, -1*speed);
+			                timeOut = setTimeout(scrollToTop, 0);
+			            }
+			            else {
+			                clearTimeout(timeOut);
+			                speed = null;
+			            }
+			        };
+			    })();
+
+			    function parseSearch(query) {
+			        var res = {};
+			        try {
+			            query.split('&').forEach(function (param) {
+			                var key = param.split('=')[0],
+			                    value = param.split('=')[1];
+			                res[key] = value;
+			            });
+			        } catch (err) {
+			            console.error(err);
+			        }
+			        return res;
+			    }
+
+			    // 滚动到之前的位置
+			    var previousPosition = parseSearch(window.location.search)['pos'] || 0;
+			    previousPosition && window.scrollTo(0, +previousPosition);
+
+			    var more = document.querySelector('.more a');
+			    if (more) {
+			        more.addEventListener('click', function (event) {
+			            event.preventDefault();
+			            // 保存当前在列表中的位置
+			            var url = event.target.href + '&pos=' + document.body.scrollTop;
+			            window.location.href = url;
+			        });
+			    }
+			});
+        </script>
+	</body>
+</html>
