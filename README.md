@@ -1,1 +1,3 @@
-### first git hub
+### blog staticPage
+仿照美团点评的技术播客页面
+以后做博客的或许可以用上，先上传上来
